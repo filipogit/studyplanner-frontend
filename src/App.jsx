@@ -9,6 +9,7 @@ function App() {
   const [tasks, setTasks] = useState([])
   const [error, setError] = useState(null)
   const [sortBy, setSortBy] = useState('created')
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
     loadTasks()
@@ -58,7 +59,13 @@ function App() {
     }
   }
 
-  const sortedTasks = [...tasks].sort((a, b) => {
+  const filteredTasks = tasks.filter(task => {
+    if (filter === 'active') return !task.isCompleted
+    if (filter === 'done') return task.isCompleted
+    return true
+  })
+
+  const sortedTasks = [...filteredTasks].sort((a, b) => {
     if (sortBy === 'deadline') {
       if (!a.dueDate) return 1
       if (!b.dueDate) return -1
@@ -78,13 +85,20 @@ function App() {
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <TaskForm onTaskCreated={handleCreateTask} />
-        <div className="sort-bar">
-          <label htmlFor="sort">Sortera efter:</label>
-          <select id="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
-            <option value="created">Skapad (nyast först)</option>
-            <option value="deadline">Deadline (närmast först)</option>
-            <option value="title">Titel (A-Ö)</option>
-          </select>
+        <div className="toolbar">
+          <div className="filter-bar">
+            <button className={`filter-btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>Alla</button>
+            <button className={`filter-btn ${filter === 'active' ? 'active' : ''}`} onClick={() => setFilter('active')}>Pågående</button>
+            <button className={`filter-btn ${filter === 'done' ? 'active' : ''}`} onClick={() => setFilter('done')}>Klara</button>
+          </div>
+          <div className="sort-bar">
+            <label htmlFor="sort">Sortera:</label>
+            <select id="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+              <option value="created">Skapad (nyast först)</option>
+              <option value="deadline">Deadline (närmast först)</option>
+              <option value="title">Titel (A-Ö)</option>
+            </select>
+          </div>
         </div>
         <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
       </main>

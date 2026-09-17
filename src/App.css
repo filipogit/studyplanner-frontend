@@ -25,11 +25,44 @@
   margin: 0 auto;
 }
 
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 4px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border: 1px solid #dde2e8;
+  border-radius: 6px;
+  background: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.filter-btn.active {
+  background-color: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
+
+.filter-btn:hover:not(.active) {
+  background-color: #f0f4f8;
+}
+
 .sort-bar {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 16px;
 }
 
 .sort-bar label {
