@@ -5,6 +5,7 @@ function TaskForm({ onTaskCreated }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [dueDate, setDueDate] = useState('')
+  const [category, setCategory] = useState('')
   const [errors, setErrors] = useState({})
 
   function validate() {
@@ -30,12 +31,14 @@ function TaskForm({ onTaskCreated }) {
       title: title.trim(),
       description: description.trim() || null,
       dueDate: dueDate || null,
+      category: category.trim() || null,
       isCompleted: false,
     })
 
     setTitle('')
     setDescription('')
     setDueDate('')
+    setCategory('')
     setErrors({})
   }
 
@@ -69,6 +72,16 @@ function TaskForm({ onTaskCreated }) {
             className={errors.description ? 'input-error' : ''}
           />
           {errors.description && <span className="field-error">{errors.description}</span>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="category">Ämne/kurs</label>
+          <input
+            id="category"
+            type="text"
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            placeholder="T.ex. Matematik, Engelska"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="dueDate">Deadline</label>

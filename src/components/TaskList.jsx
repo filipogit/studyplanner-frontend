@@ -13,6 +13,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
     setEditForm({
       title: task.title,
       description: task.description || '',
+      category: task.category || '',
       dueDate: task.dueDate ? task.dueDate.split('T')[0] : '',
       isCompleted: task.isCompleted,
     })
@@ -28,6 +29,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
       ...task,
       title: editForm.title,
       description: editForm.description || null,
+      category: editForm.category || null,
       dueDate: editForm.dueDate || null,
       isCompleted: editForm.isCompleted,
     })
@@ -81,6 +83,14 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                 </div>
                 <div className="form-group">
                   <input
+                    type="text"
+                    value={editForm.category}
+                    onChange={e => setEditForm({ ...editForm, category: e.target.value })}
+                    placeholder="Ämne/kurs"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
                     type="date"
                     value={editForm.dueDate}
                     onChange={e => setEditForm({ ...editForm, dueDate: e.target.value })}
@@ -103,6 +113,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
               <>
                 <div className="task-info">
                   <h3 className="task-title">{task.title}</h3>
+                  {task.category && <span className="task-category">{task.category}</span>}
                   {task.description && <p className="task-description">{task.description}</p>}
                   {task.dueDate && (
                     <p className="task-due">Deadline: {new Date(task.dueDate).toLocaleDateString('sv-SE')}</p>
