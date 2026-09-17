@@ -2,33 +2,59 @@ import { useState, useEffect } from 'react'
 import { getTasks, createTask, updateTask, uploadFile } from './api'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
+import ErrorMessage from './components/ErrorMessage'
 import './App.css'
 
 function App() {
   const [tasks, setTasks] = useState([])
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    getTasks().then(setTasks)
+    loadTasks()
   }, [])
 
+  async function loadTasks() {
+    try {
+      const data = await getTasks()
+      setTasks(data)
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   async function handleCreateTask(task) {
-    const created = await createTask(task)
-    setTasks(prev => [...prev, created])
+    try {
+      setError(null)
+      const created = await createTask(task)
+      setTasks(prev => [...prev, created])
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   async function handleUpdateTask(id, task) {
-    await updateTask(id, task)
-    setTasks(prev => prev.map(t => t.id === id ? { ...t, ...task } : t))
+    try {
+      setError(null)
+      await updateTask(id, task)
+      setTasks(prev => prev.map(t => t.id === id ? { ...t, ...task } : t))
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   async function handleFileUpload(taskId, file) {
-    const attachment = await uploadFile(taskId, file)
-    setTasks(prev => prev.map(t => {
-      if (t.id === taskId) {
-        return { ...t, attachments: [...(t.attachments || []), attachment] }
-      }
-      return t
-    }))
+    try {
+      setError(null)
+      const attachment = await uploadFile(taskId, file)
+      setTasks(prev => prev.map(t => {
+        if (t.id === taskId) {
+          return { ...t, attachments: [...(t.attachments || []), attachment] }
+        }
+        return t
+      }))
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   return (
@@ -37,6 +63,7 @@ function App() {
         <h1>StudyPlanner</h1>
       </header>
       <main className="main">
+        {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <TaskForm onTaskCreated={handleCreateTask} />
         <TaskList tasks={tasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
       </main>
