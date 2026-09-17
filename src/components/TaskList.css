@@ -6,9 +6,10 @@
 }
 
 .task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
   background: white;
   padding: 16px;
   border-radius: 8px;
@@ -190,13 +191,25 @@
 
 @media (max-width: 768px) {
   .task-item {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 8px;
+    padding: 12px;
   }
 
   .task-actions {
     flex-direction: row;
+    flex-wrap: wrap;
     margin-left: 0;
-    align-self: flex-start;
+    align-items: center;
+  }
+
+  .task-title {
+    font-size: 1rem;
+  }
+
+  .edit-form input[type="text"],
+  .edit-form input[type="date"],
+  .edit-form textarea {
+    font-size: 16px;
   }
 }
