@@ -223,6 +223,55 @@
   font-size: 1.05rem;
 }
 
+body.dark .task-item {
+  background: #2a2a40;
+  border-color: #3a3a55;
+}
+
+body.dark .task-title {
+  color: #e0e0e0;
+}
+
+body.dark .task-description {
+  color: #aaa;
+}
+
+body.dark .task-due {
+  color: #999;
+}
+
+body.dark .edit-btn,
+body.dark .cancel-btn {
+  border-color: #3a3a55;
+  color: #ccc;
+}
+
+body.dark .edit-btn:hover,
+body.dark .cancel-btn:hover {
+  background-color: #3a3a55;
+}
+
+body.dark .upload-btn {
+  border-color: #1a73e8;
+  color: #5fa8ff;
+}
+
+body.dark .edit-form input[type="text"],
+body.dark .edit-form input[type="date"],
+body.dark .edit-form textarea {
+  background: #1a1a2e;
+  border-color: #3a3a55;
+  color: #e0e0e0;
+}
+
+body.dark .empty-message {
+  color: #777;
+}
+
+body.dark .task-item.overdue {
+  background-color: #2e1a1a;
+}
+
 @media (max-width: 768px) {
   .task-item {
     grid-template-columns: 1fr;

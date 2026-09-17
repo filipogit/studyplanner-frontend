@@ -11,6 +11,11 @@ function App() {
   const [sortBy, setSortBy] = useState('created')
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', darkMode)
+  }, [darkMode])
 
   useEffect(() => {
     loadTasks()
@@ -87,6 +92,9 @@ function App() {
     <div className="app">
       <header className="header">
         <h1>StudyPlanner</h1>
+        <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? 'Ljust läge' : 'Mörkt läge'}
+        </button>
       </header>
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
