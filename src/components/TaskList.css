@@ -11,13 +11,20 @@
   gap: 12px;
   align-items: start;
   background: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e6ed;
+  transition: box-shadow 0.2s;
+}
+
+.task-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .task-item.completed {
-  opacity: 0.7;
+  opacity: 0.65;
+  border-left: 4px solid #28a745;
 }
 
 .task-info {
@@ -26,7 +33,9 @@
 
 .task-title {
   font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 4px;
+  color: #222;
 }
 
 .task-description {
@@ -37,7 +46,7 @@
 .task-due {
   color: #888;
   font-size: 0.85rem;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .task-actions {
@@ -50,7 +59,8 @@
 
 .task-status {
   font-size: 0.8rem;
-  padding: 4px 10px;
+  font-weight: 600;
+  padding: 4px 12px;
   border-radius: 12px;
   white-space: nowrap;
 }
@@ -67,20 +77,22 @@
 
 .edit-btn {
   background: none;
-  border: 1px solid #ddd;
-  padding: 4px 12px;
-  border-radius: 4px;
+  border: 1px solid #dde2e8;
+  padding: 5px 14px;
+  border-radius: 6px;
   font-size: 0.85rem;
   cursor: pointer;
   color: #555;
 }
 
 .edit-btn:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f4f8;
+  border-color: #ccc;
 }
 
 .edit-form {
   width: 100%;
+  grid-column: 1 / -1;
 }
 
 .edit-form .form-group {
@@ -93,17 +105,19 @@
 .edit-form input[type="date"],
 .edit-form textarea {
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #dde2e8;
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
+  background: #fafbfc;
 }
 
 .edit-form input:focus,
 .edit-form textarea:focus {
   outline: none;
   border-color: #1a73e8;
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+  background: white;
 }
 
 .checkbox-label {
@@ -111,7 +125,7 @@
   align-items: center;
   gap: 6px;
   font-size: 0.9rem;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 
@@ -124,10 +138,11 @@
   background-color: #1a73e8;
   color: white;
   border: none;
-  padding: 6px 16px;
-  border-radius: 4px;
+  padding: 7px 18px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .save-btn:hover {
@@ -136,23 +151,23 @@
 
 .cancel-btn {
   background: none;
-  border: 1px solid #ddd;
-  padding: 6px 16px;
-  border-radius: 4px;
+  border: 1px solid #dde2e8;
+  padding: 7px 18px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
   color: #555;
 }
 
 .cancel-btn:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f4f8;
 }
 
 .upload-btn {
   background: none;
   border: 1px solid #1a73e8;
-  padding: 4px 12px;
-  border-radius: 4px;
+  padding: 5px 14px;
+  border-radius: 6px;
   font-size: 0.85rem;
   cursor: pointer;
   color: #1a73e8;
@@ -166,16 +181,17 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .file-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-size: 0.85rem;
   color: #1a73e8;
   background-color: #e8f0fe;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
   text-decoration: none;
 }
 
@@ -185,15 +201,16 @@
 
 .empty-message {
   text-align: center;
-  color: #888;
-  padding: 32px;
+  color: #999;
+  padding: 48px 16px;
+  font-size: 1.05rem;
 }
 
 @media (max-width: 768px) {
   .task-item {
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 12px;
+    padding: 14px;
   }
 
   .task-actions {
