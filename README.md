@@ -33,11 +33,18 @@ API:et startar på `https://localhost:7257`.
 
 ## Funktioner
 
-- Visa alla studieuppgifter i en lista
-- Skapa nya uppgifter med titel, beskrivning och deadline
-- Redigera befintliga uppgifter och markera som klara
+- Skapa, redigera och markera studieuppgifter som klara
+- Tagga uppgifter med ämne/kurs (t.ex. Matematik, Engelska)
 - Ladda upp filer till uppgifter
-- Felmeddelanden visas om något går fel mot API:et
+- Sök bland uppgifter på titel och beskrivning
+- Filtrera uppgifter (alla, pågående, klara)
+- Sortera efter skapad-datum, deadline eller titel
+- Progress-bar som visar andel klara uppgifter
+- Färgkodning för passerade deadlines
+- Mörkt läge
+- Laddningsindikator medan data hämtas
+- Bekräftelsedialog vid statusändring
+- Formulärvalidering med teckengräns och felmeddelanden
 - Responsiv design som fungerar på mobil och desktop
 
 ## Tekniska val
@@ -46,7 +53,7 @@ API:et startar på `https://localhost:7257`.
 Vite valdes som byggverktyg för snabb utveckling med hot module replacement. React ger en komponentbaserad struktur som gör koden lätt att underhålla.
 
 ### CSS med Flexbox och Grid
-Layouten använder CSS Grid för formuläret (två kolumner på desktop, en på mobil) och Flexbox för uppgiftslistan och övrig layout. Inga externa CSS-ramverk behövs.
+Layouten använder CSS Grid för formuläret (två kolumner på desktop, en på mobil) och Flexbox för uppgiftslistan och övrig layout. Responsiva breakpoints vid 768px och 1024px anpassar designen för mobil, surfplatta och desktop. Inga externa CSS-ramverk behövs.
 
 ### Felhantering
 Alla API-anrop är wrappade i try/catch. Vid fel visas ett tydligt meddelande som användaren kan stänga, istället för att appen kraschar.
