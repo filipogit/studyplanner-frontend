@@ -3,6 +3,7 @@ import { getTasks, createTask, updateTask, uploadFile } from './api'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
 import ErrorMessage from './components/ErrorMessage'
+import logo from './assets/logo.svg'
 import './App.css'
 
 function App() {
@@ -95,7 +96,10 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>StudyPlanner</h1>
+        <div className="header-brand">
+          <img src={logo} alt="StudyPlanner" className="header-logo" />
+          <h1>StudyPlanner</h1>
+        </div>
         <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? 'Ljust läge' : 'Mörkt läge'}
         </button>
