@@ -24,3 +24,19 @@ export async function updateTask(id, task) {
   });
   if (!response.ok) throw new Error('Kunde inte uppdatera uppgift');
 }
+
+export async function uploadFile(taskId, file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(`${API_URL}/tasks/${taskId}/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+  if (!response.ok) throw new Error('Kunde inte ladda upp fil');
+  return response.json();
+}
+
+export function getFileUrl(taskId, fileId) {
+  return `${API_URL}/tasks/${taskId}/files/${fileId}`;
+}
