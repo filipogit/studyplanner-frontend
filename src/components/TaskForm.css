@@ -73,6 +73,24 @@
   box-shadow: 0 2px 6px rgba(26, 115, 232, 0.3);
 }
 
+.field-error {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.input-error {
+  border-color: #dc3545 !important;
+}
+
+.char-count {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #999;
+  margin-left: 8px;
+  text-transform: none;
+}
+
 body.dark .task-form {
   background: #2a2a40;
   border-color: #3a3a55;

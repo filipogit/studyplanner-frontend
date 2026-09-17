@@ -5,10 +5,26 @@ function TaskForm({ onTaskCreated }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [dueDate, setDueDate] = useState('')
+  const [errors, setErrors] = useState({})
+
+  function validate() {
+    const newErrors = {}
+    if (!title.trim()) {
+      newErrors.title = 'Titel är obligatoriskt'
+    } else if (title.trim().length > 200) {
+      newErrors.title = 'Titel får max vara 200 tecken'
+    }
+    if (description.length > 1000) {
+      newErrors.description = 'Beskrivning får max vara 1000 tecken'
+    }
+    return newErrors
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (!title.trim()) return
+    const newErrors = validate()
+    setErrors(newErrors)
+    if (Object.keys(newErrors).length > 0) return
 
     onTaskCreated({
       title: title.trim(),
@@ -20,6 +36,7 @@ function TaskForm({ onTaskCreated }) {
     setTitle('')
     setDescription('')
     setDueDate('')
+    setErrors({})
   }
 
   return (
@@ -34,18 +51,24 @@ function TaskForm({ onTaskCreated }) {
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="Ange uppgiftens titel"
-            required
+            className={errors.title ? 'input-error' : ''}
           />
+          {errors.title && <span className="field-error">{errors.title}</span>}
         </div>
         <div className="form-group">
-          <label htmlFor="description">Beskrivning</label>
+          <label htmlFor="description">
+            Beskrivning
+            <span className="char-count">{description.length}/1000</span>
+          </label>
           <textarea
             id="description"
             value={description}
             onChange={e => setDescription(e.target.value)}
             placeholder="Valfri beskrivning"
             rows={3}
+            className={errors.description ? 'input-error' : ''}
           />
+          {errors.description && <span className="field-error">{errors.description}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="dueDate">Deadline</label>
