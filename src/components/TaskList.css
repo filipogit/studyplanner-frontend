@@ -147,6 +147,41 @@
   background-color: #f0f0f0;
 }
 
+.upload-btn {
+  background: none;
+  border: 1px solid #1a73e8;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #1a73e8;
+}
+
+.upload-btn:hover {
+  background-color: #e8f0fe;
+}
+
+.task-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.file-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #1a73e8;
+  background-color: #e8f0fe;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.file-link:hover {
+  background-color: #d2e3fc;
+}
+
 .empty-message {
   text-align: center;
   color: #888;
