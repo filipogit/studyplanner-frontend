@@ -107,6 +107,24 @@ function App() {
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <TaskForm onTaskCreated={handleCreateTask} />
+        {tasks.length > 0 && (
+          <div className="progress-section">
+            <div className="progress-header">
+              <span className="progress-text">
+                {tasks.filter(t => t.isCompleted).length} av {tasks.length} klara
+              </span>
+              <span className="progress-percent">
+                {Math.round((tasks.filter(t => t.isCompleted).length / tasks.length) * 100)}%
+              </span>
+            </div>
+            <div className="progress-bar">
+              <div
+                className="progress-fill"
+                style={{ width: `${(tasks.filter(t => t.isCompleted).length / tasks.length) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
         <div className="search-bar">
           <input
             type="text"
