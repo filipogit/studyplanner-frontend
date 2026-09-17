@@ -2,6 +2,23 @@ import { useState, useRef } from 'react'
 import { getFileUrl } from '../api'
 import './TaskList.css'
 
+const categoryColors = [
+  { bg: '#e8f0fe', color: '#1a73e8', dark: '#1a3a5c', darkColor: '#5fa8ff' },
+  { bg: '#fce8e8', color: '#c62828', dark: '#5c1a1a', darkColor: '#ff7b7b' },
+  { bg: '#e8f5e9', color: '#2e7d32', dark: '#1a3d1e', darkColor: '#66bb6a' },
+  { bg: '#fff3e0', color: '#e65100', dark: '#4a2800', darkColor: '#ffb74d' },
+  { bg: '#f3e5f5', color: '#7b1fa2', dark: '#3a1a4a', darkColor: '#ce93d8' },
+  { bg: '#e0f7fa', color: '#00838f', dark: '#1a3a3d', darkColor: '#4dd0e1' },
+]
+
+function getCategoryColor(category) {
+  let hash = 0
+  for (let i = 0; i < category.length; i++) {
+    hash = category.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  return categoryColors[Math.abs(hash) % categoryColors.length]
+}
+
 function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({})
@@ -113,7 +130,17 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
               <>
                 <div className="task-info">
                   <h3 className="task-title">{task.title}</h3>
-                  {task.category && <span className="task-category">{task.category}</span>}
+                  {task.category && (
+                    <span
+                      className="task-category"
+                      style={{
+                        backgroundColor: getCategoryColor(task.category).bg,
+                        color: getCategoryColor(task.category).color,
+                      }}
+                    >
+                      {task.category}
+                    </span>
+                  )}
                   {task.description && <p className="task-description">{task.description}</p>}
                   {task.dueDate && (
                     <p className="task-due">{'\u{1F4C5}'} {new Date(task.dueDate).toLocaleDateString('sv-SE')}</p>
