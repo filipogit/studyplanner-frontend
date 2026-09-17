@@ -124,9 +124,19 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                   )}
                 </div>
                 <div className="task-actions">
-                  <span className={`task-status ${task.isCompleted ? 'done' : 'pending'}`}>
+                  <button
+                    className={`status-btn ${task.isCompleted ? 'done' : 'pending'}`}
+                    onClick={() => {
+                      const msg = task.isCompleted
+                        ? 'Vill du markera uppgiften som pågående igen?'
+                        : 'Vill du markera uppgiften som klar?'
+                      if (window.confirm(msg)) {
+                        onTaskUpdated(task.id, { ...task, isCompleted: !task.isCompleted })
+                      }
+                    }}
+                  >
                     {task.isCompleted ? 'Klar' : 'Pågående'}
-                  </span>
+                  </button>
                   <button className="edit-btn" onClick={() => startEditing(task)}>Redigera</button>
                   <button className="upload-btn" onClick={() => handleUploadClick(task.id)}>Ladda upp fil</button>
                 </div>

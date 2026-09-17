@@ -57,20 +57,27 @@
   margin-left: 12px;
 }
 
-.task-status {
+.status-btn {
   font-size: 0.8rem;
   font-weight: 600;
   padding: 4px 12px;
   border-radius: 12px;
   white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
 
-.task-status.done {
+.status-btn:hover {
+  opacity: 0.8;
+}
+
+.status-btn.done {
   background-color: #d4edda;
   color: #155724;
 }
 
-.task-status.pending {
+.status-btn.pending {
   background-color: #fff3cd;
   color: #856404;
 }
