@@ -62,7 +62,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
       />
       <ul className="task-list">
         {tasks.map(task => (
-          <li key={task.id} className={`task-item ${task.isCompleted ? 'completed' : ''}`}>
+          <li key={task.id} className={`task-item ${task.isCompleted ? 'completed' : ''} ${!task.isCompleted && task.dueDate && new Date(task.dueDate) < new Date() ? 'overdue' : ''}`}>
             {editingId === task.id ? (
               <div className="edit-form">
                 <div className="form-group">

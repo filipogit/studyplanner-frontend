@@ -27,6 +27,16 @@
   border-left: 4px solid #28a745;
 }
 
+.task-item.overdue {
+  border-left: 4px solid #dc3545;
+  background-color: #fff8f8;
+}
+
+.task-item.overdue .task-due {
+  color: #dc3545;
+  font-weight: 600;
+}
+
 .task-info {
   flex: 1;
 }
