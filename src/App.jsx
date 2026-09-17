@@ -98,7 +98,10 @@ function App() {
       <header className="header">
         <div className="header-brand">
           <img src={logo} alt="StudyPlanner" className="header-logo" />
-          <h1>StudyPlanner</h1>
+          <div className="header-title">
+            <h1>StudyPlanner</h1>
+            <span className="header-tagline">Planera dina studier</span>
+          </div>
         </div>
         <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? 'Ljust läge' : 'Mörkt läge'}
