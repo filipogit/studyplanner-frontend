@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getTasks, createTask } from './api'
+import { getTasks, createTask, updateTask } from './api'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
 import './App.css'
@@ -16,6 +16,11 @@ function App() {
     setTasks(prev => [...prev, created])
   }
 
+  async function handleUpdateTask(id, task) {
+    await updateTask(id, task)
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, ...task } : t))
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -23,7 +28,7 @@ function App() {
       </header>
       <main className="main">
         <TaskForm onTaskCreated={handleCreateTask} />
-        <TaskList tasks={tasks} />
+        <TaskList tasks={tasks} onTaskUpdated={handleUpdateTask} />
       </main>
     </div>
   )

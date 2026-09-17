@@ -15,3 +15,12 @@ export async function createTask(task) {
   if (!response.ok) throw new Error('Kunde inte skapa uppgift');
   return response.json();
 }
+
+export async function updateTask(id, task) {
+  const response = await fetch(`${API_URL}/tasks/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(task),
+  });
+  if (!response.ok) throw new Error('Kunde inte uppdatera uppgift');
+}
