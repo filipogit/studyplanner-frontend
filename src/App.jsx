@@ -12,6 +12,7 @@ function App() {
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [darkMode, setDarkMode] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     document.body.classList.toggle('dark', darkMode)
@@ -23,10 +24,13 @@ function App() {
 
   async function loadTasks() {
     try {
+      setLoading(true)
       const data = await getTasks()
       setTasks(data)
     } catch (err) {
       setError(err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -123,7 +127,14 @@ function App() {
             </select>
           </div>
         </div>
-        <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
+        {loading ? (
+          <div className="spinner-container">
+            <div className="spinner"></div>
+            <p>Laddar uppgifter...</p>
+          </div>
+        ) : (
+          <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
+        )}
       </main>
     </div>
   )
