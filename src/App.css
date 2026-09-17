@@ -25,6 +25,33 @@
   margin: 0 auto;
 }
 
+.sort-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.sort-bar label {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.sort-bar select {
+  padding: 6px 12px;
+  border: 1px solid #dde2e8;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+}
+
+.sort-bar select:focus {
+  outline: none;
+  border-color: #1a73e8;
+}
+
 @media (max-width: 768px) {
   .header {
     padding: 14px 16px;

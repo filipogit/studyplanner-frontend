@@ -8,6 +8,7 @@ import './App.css'
 function App() {
   const [tasks, setTasks] = useState([])
   const [error, setError] = useState(null)
+  const [sortBy, setSortBy] = useState('created')
 
   useEffect(() => {
     loadTasks()
@@ -57,6 +58,18 @@ function App() {
     }
   }
 
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (sortBy === 'deadline') {
+      if (!a.dueDate) return 1
+      if (!b.dueDate) return -1
+      return new Date(a.dueDate) - new Date(b.dueDate)
+    }
+    if (sortBy === 'title') {
+      return a.title.localeCompare(b.title, 'sv')
+    }
+    return new Date(b.createdAt) - new Date(a.createdAt)
+  })
+
   return (
     <div className="app">
       <header className="header">
@@ -65,7 +78,15 @@ function App() {
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <TaskForm onTaskCreated={handleCreateTask} />
-        <TaskList tasks={tasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
+        <div className="sort-bar">
+          <label htmlFor="sort">Sortera efter:</label>
+          <select id="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+            <option value="created">Skapad (nyast först)</option>
+            <option value="deadline">Deadline (närmast först)</option>
+            <option value="title">Titel (A-Ö)</option>
+          </select>
+        </div>
+        <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
       </main>
     </div>
   )
