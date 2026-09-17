@@ -105,8 +105,8 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                   Klar
                 </label>
                 <div className="edit-actions">
-                  <button className="save-btn" onClick={() => handleSave(task)}>Spara</button>
-                  <button className="cancel-btn" onClick={cancelEditing}>Avbryt</button>
+                  <button className="save-btn" onClick={() => handleSave(task)}>{'✔️'} Spara</button>
+                  <button className="cancel-btn" onClick={cancelEditing}>{'✖️'} Avbryt</button>
                 </div>
               </div>
             ) : (
@@ -116,7 +116,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                   {task.category && <span className="task-category">{task.category}</span>}
                   {task.description && <p className="task-description">{task.description}</p>}
                   {task.dueDate && (
-                    <p className="task-due">Deadline: {new Date(task.dueDate).toLocaleDateString('sv-SE')}</p>
+                    <p className="task-due">{'\u{1F4C5}'} {new Date(task.dueDate).toLocaleDateString('sv-SE')}</p>
                   )}
                   {task.attachments && task.attachments.length > 0 && (
                     <div className="task-files">
@@ -128,7 +128,7 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                           rel="noopener noreferrer"
                           className="file-link"
                         >
-                          {file.fileName}
+                          {'\u{1F4C4}'} {file.fileName}
                         </a>
                       ))}
                     </div>
@@ -146,10 +146,10 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                       }
                     }}
                   >
-                    {task.isCompleted ? 'Klar' : 'Pågående'}
+                    {task.isCompleted ? '✅ Klar' : '⏳ Pågående'}
                   </button>
-                  <button className="edit-btn" onClick={() => startEditing(task)}>Redigera</button>
-                  <button className="upload-btn" onClick={() => handleUploadClick(task.id)}>Ladda upp fil</button>
+                  <button className="edit-btn" onClick={() => startEditing(task)}>{'✏️'} Redigera</button>
+                  <button className="upload-btn" onClick={() => handleUploadClick(task.id)}>{'\u{1F4CE}'} Ladda upp fil</button>
                 </div>
               </>
             )}
