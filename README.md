@@ -29,7 +29,7 @@ dotnet ef database update
 dotnet run
 ```
 
-API:et startar på `https://localhost:5001`.
+API:et startar på `https://localhost:7257`.
 
 ## Funktioner
 
