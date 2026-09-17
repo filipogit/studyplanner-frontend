@@ -1,0 +1,134 @@
+.reminders {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.reminder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 10px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reminder-overdue {
+  background: #fde8e8;
+  border: 1px solid #f5c2c2;
+}
+
+.reminder-today {
+  background: #fff3e0;
+  border: 1px solid #ffe0b2;
+}
+
+.reminder-tomorrow {
+  background: #fff8e1;
+  border: 1px solid #fff0b3;
+}
+
+.reminder-upcoming {
+  background: #e3f2fd;
+  border: 1px solid #bbdefb;
+}
+
+.reminder-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reminder-icon {
+  font-size: 1.2rem;
+}
+
+.reminder-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.reminder-text strong {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.reminder-text span {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.reminder-dismiss {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #999;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.reminder-dismiss:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #555;
+}
+
+body.dark .reminder-overdue {
+  background: #3d1a1a;
+  border-color: #5c2a2a;
+}
+
+body.dark .reminder-today {
+  background: #3d2e1a;
+  border-color: #5c4a2a;
+}
+
+body.dark .reminder-tomorrow {
+  background: #3d3a1a;
+  border-color: #5c552a;
+}
+
+body.dark .reminder-upcoming {
+  background: #1a2a3d;
+  border-color: #2a3d5c;
+}
+
+body.dark .reminder-text strong {
+  color: #e0e0e0;
+}
+
+body.dark .reminder-text span {
+  color: #aaa;
+}
+
+body.dark .reminder-dismiss {
+  color: #777;
+}
+
+body.dark .reminder-dismiss:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .reminder {
+    padding: 10px 12px;
+  }
+
+  .reminder-text strong {
+    font-size: 0.85rem;
+  }
+}

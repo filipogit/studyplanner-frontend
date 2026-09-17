@@ -3,6 +3,7 @@ import { getTasks, createTask, updateTask, uploadFile } from './api'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
 import ErrorMessage from './components/ErrorMessage'
+import DeadlineReminder from './components/DeadlineReminder'
 import logo from './assets/logo.svg'
 import './App.css'
 
@@ -109,6 +110,7 @@ function App() {
       </header>
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
+        <DeadlineReminder tasks={tasks} />
         <TaskForm onTaskCreated={handleCreateTask} />
         {tasks.length > 0 && (
           <div className="progress-section">
