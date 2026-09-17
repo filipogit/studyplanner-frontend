@@ -25,6 +25,26 @@
   margin: 0 auto;
 }
 
+.search-bar {
+  margin-bottom: 12px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #dde2e8;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: white;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
+}
+
 .toolbar {
   display: flex;
   justify-content: space-between;

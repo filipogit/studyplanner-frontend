@@ -10,6 +10,7 @@ function App() {
   const [error, setError] = useState(null)
   const [sortBy, setSortBy] = useState('created')
   const [filter, setFilter] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     loadTasks()
@@ -60,8 +61,13 @@ function App() {
   }
 
   const filteredTasks = tasks.filter(task => {
-    if (filter === 'active') return !task.isCompleted
-    if (filter === 'done') return task.isCompleted
+    if (filter === 'active' && task.isCompleted) return false
+    if (filter === 'done' && !task.isCompleted) return false
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase()
+      return task.title.toLowerCase().includes(q) ||
+        (task.description && task.description.toLowerCase().includes(q))
+    }
     return true
   })
 
@@ -85,6 +91,15 @@ function App() {
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <TaskForm onTaskCreated={handleCreateTask} />
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Sök uppgifter..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+        </div>
         <div className="toolbar">
           <div className="filter-bar">
             <button className={`filter-btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>Alla</button>
