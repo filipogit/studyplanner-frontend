@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { getFileUrl } from '../api'
 import './TaskList.css'
 
@@ -125,7 +126,9 @@ function TaskList({ tasks, onTaskUpdated, onTaskDeleted, onFileUpload }) {
             ) : (
               <>
                 <div className="task-info">
-                  <h3 className="task-title">{task.title}</h3>
+                  <h3 className="task-title">
+                    <Link to={`/task/${task.id}`}>{task.title}</Link>
+                  </h3>
                   {task.category && (
                     <span
                       className="task-category"
@@ -143,17 +146,24 @@ function TaskList({ tasks, onTaskUpdated, onTaskDeleted, onFileUpload }) {
                   )}
                   {task.attachments && task.attachments.length > 0 && (
                     <div className="task-files">
-                      {task.attachments.map(file => (
-                        <a
-                          key={file.id}
-                          href={getFileUrl(task.id, file.id)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="file-link"
-                        >
-                          {'\u{1F4C4}'} {file.fileName}
-                        </a>
-                      ))}
+                      {task.attachments.map(file => {
+                        const isImage = file.contentType && file.contentType.startsWith('image/')
+                        return isImage ? (
+                          <a key={file.id} href={getFileUrl(task.id, file.id)} target="_blank" rel="noopener noreferrer">
+                            <img src={getFileUrl(task.id, file.id)} alt={file.fileName} className="file-preview" />
+                          </a>
+                        ) : (
+                          <a
+                            key={file.id}
+                            href={getFileUrl(task.id, file.id)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="file-link"
+                          >
+                            {'\u{1F4C4}'} {file.fileName}
+                          </a>
+                        )
+                      })}
                     </div>
                   )}
                 </div>

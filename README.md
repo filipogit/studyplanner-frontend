@@ -33,24 +33,29 @@ API:et startar på `https://localhost:7257`.
 
 ## Funktioner
 
-- Skapa, redigera och markera studieuppgifter som klara
-- Tagga uppgifter med ämne/kurs (t.ex. Matematik, Engelska)
-- Ladda upp filer till uppgifter
+- Skapa, redigera och ta bort studieuppgifter
+- Markera uppgifter som klara med bekräftelsedialog
+- Tagga uppgifter med ämne/kurs som färgkodas automatiskt
+- Ladda upp filer direkt i formuläret eller på befintliga uppgifter
+- Bildförhandsvisning för uppladdade bilder
+- Detaljsida för varje uppgift med all information
 - Sök bland uppgifter på titel och beskrivning
 - Filtrera uppgifter (alla, pågående, klara)
 - Sortera efter skapad-datum, deadline eller titel
-- Progress-bar som visar andel klara uppgifter
+- Deadline-påminnelser som varnar när deadline närmar sig
 - Färgkodning för passerade deadlines
-- Mörkt läge
+- Mörkt läge som sparas mellan sessioner
 - Laddningsindikator medan data hämtas
-- Bekräftelsedialog vid statusändring
 - Formulärvalidering med teckengräns och felmeddelanden
 - Responsiv design som fungerar på mobil och desktop
 
 ## Tekniska val
 
 ### React med Vite
-Vite valdes som byggverktyg för snabb utveckling med hot module replacement. React ger en komponentbaserad struktur som gör koden lätt att underhålla.
+Vite valdes som byggverktyg för snabb utveckling med hot module replacement. React ger en komponentbaserad struktur som gör koden lätt att underhålla och återanvända.
+
+### React Router
+React Router används för klient-sidnavigering mellan startsidan och detaljsidor för enskilda uppgifter. Det ger en SPA-upplevelse utan omladdning av sidan.
 
 ### CSS med Flexbox och Grid
 Layouten använder CSS Grid för formuläret (två kolumner på desktop, en på mobil) och Flexbox för uppgiftslistan och övrig layout. Responsiva breakpoints vid 768px och 1024px anpassar designen för mobil, surfplatta och desktop. Inga externa CSS-ramverk behövs.

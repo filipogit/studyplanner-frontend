@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import { getTasks, createTask, updateTask, deleteTask, uploadFile } from './api'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
+import TaskDetail from './components/TaskDetail'
 import ErrorMessage from './components/ErrorMessage'
 import DeadlineReminder from './components/DeadlineReminder'
 import logo from './assets/logo.svg'
@@ -115,13 +117,13 @@ function App() {
     <div className="app">
       <div className="header-wrapper">
         <header className="header">
-          <div className="header-brand">
+          <Link to="/" className="header-brand">
             <img src={logo} alt="StudyPlanner" className="header-logo" />
             <div className="header-title">
               <h1>StudyPlanner</h1>
               <span className="header-tagline">Planera dina studier</span>
             </div>
-          </div>
+          </Link>
           <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? 'Ljust läge' : 'Mörkt läge'}
           </button>
@@ -130,49 +132,54 @@ function App() {
           <path d="M0,0 C360,40 1080,40 1440,0 L1440,40 L0,40 Z" fill="#eef2f7" />
         </svg>
       </div>
-      <main className="main">
-        {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
-        <DeadlineReminder tasks={tasks} />
-        <TaskForm onTaskCreated={handleCreateTask} />
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Sök uppgifter..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
-        </div>
-        <div className="toolbar">
-          <div className="filter-bar">
-            <button className={`filter-btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>Alla</button>
-            <button className={`filter-btn ${filter === 'active' ? 'active' : ''}`} onClick={() => setFilter('active')}>Pågående</button>
-            <button className={`filter-btn ${filter === 'done' ? 'active' : ''}`} onClick={() => setFilter('done')}>Klara</button>
-          </div>
-          <div className="sort-bar">
-            <label htmlFor="sort">Sortera:</label>
-            <select id="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
-              <option value="created">Skapad (nyast först)</option>
-              <option value="deadline">Deadline (närmast först)</option>
-              <option value="title">Titel (A-Ö)</option>
-            </select>
-          </div>
-        </div>
-        {loading ? (
-          <div className="spinner-container">
-            <div className="spinner"></div>
-            <p>Laddar uppgifter...</p>
-          </div>
-        ) : sortedTasks.length === 0 ? (
-          <div className="empty-state">
-            <span className="empty-icon">{'📚'}</span>
-            <p className="empty-title">Inga uppgifter ännu</p>
-            <p className="empty-text">Lägg till din första studieuppgift ovan!</p>
-          </div>
-        ) : (
-          <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onTaskDeleted={handleDeleteTask} onFileUpload={handleFileUpload} />
-        )}
-      </main>
+      <Routes>
+        <Route path="/" element={
+          <main className="main">
+            {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
+            <DeadlineReminder tasks={tasks} />
+            <TaskForm onTaskCreated={handleCreateTask} />
+            <div className="search-bar">
+              <input
+                type="text"
+                placeholder="Sök uppgifter..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="search-input"
+              />
+            </div>
+            <div className="toolbar">
+              <div className="filter-bar">
+                <button className={`filter-btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>Alla</button>
+                <button className={`filter-btn ${filter === 'active' ? 'active' : ''}`} onClick={() => setFilter('active')}>Pågående</button>
+                <button className={`filter-btn ${filter === 'done' ? 'active' : ''}`} onClick={() => setFilter('done')}>Klara</button>
+              </div>
+              <div className="sort-bar">
+                <label htmlFor="sort">Sortera:</label>
+                <select id="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+                  <option value="created">Skapad (nyast först)</option>
+                  <option value="deadline">Deadline (närmast först)</option>
+                  <option value="title">Titel (A-Ö)</option>
+                </select>
+              </div>
+            </div>
+            {loading ? (
+              <div className="spinner-container">
+                <div className="spinner"></div>
+                <p>Laddar uppgifter...</p>
+              </div>
+            ) : sortedTasks.length === 0 ? (
+              <div className="empty-state">
+                <span className="empty-icon">{'📚'}</span>
+                <p className="empty-title">Inga uppgifter ännu</p>
+                <p className="empty-text">Lägg till din första studieuppgift ovan!</p>
+              </div>
+            ) : (
+              <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onTaskDeleted={handleDeleteTask} onFileUpload={handleFileUpload} />
+            )}
+          </main>
+        } />
+        <Route path="/task/:id" element={<TaskDetail />} />
+      </Routes>
       <footer className="footer">
         <p>StudyPlanner &copy; {new Date().getFullYear()}</p>
       </footer>

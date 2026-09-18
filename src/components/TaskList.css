@@ -58,7 +58,16 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 4px;
+}
+
+.task-title a {
   color: #222;
+  text-decoration: none;
+}
+
+.task-title a:hover {
+  color: #1a73e8;
+  text-decoration: underline;
 }
 
 .task-category {
@@ -252,6 +261,20 @@
   background-color: #d2e3fc;
 }
 
+.file-preview {
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: 8px;
+  border: 1px solid #e8ecf1;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.file-preview:hover {
+  opacity: 0.85;
+}
+
 .empty-message {
   text-align: center;
   color: #999;
@@ -264,8 +287,12 @@ body.dark .task-item {
   border-color: #3a3a55;
 }
 
-body.dark .task-title {
+body.dark .task-title a {
   color: #e0e0e0;
+}
+
+body.dark .task-title a:hover {
+  color: #5fa8ff;
 }
 
 body.dark .task-description {
@@ -299,6 +326,10 @@ body.dark .delete-btn {
 
 body.dark .delete-btn:hover {
   background-color: #3d1a1a;
+}
+
+body.dark .file-preview {
+  border-color: #3a3a55;
 }
 
 body.dark .edit-form input[type="text"],
