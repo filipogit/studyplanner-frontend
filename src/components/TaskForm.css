@@ -91,6 +91,26 @@
   text-transform: none;
 }
 
+.file-input {
+  padding: 8px;
+  font-size: 0.9rem;
+  border: 1px dashed #ccd2da;
+  border-radius: 6px;
+  background: #fafbfc;
+  cursor: pointer;
+}
+
+.file-input:hover {
+  border-color: #1a73e8;
+  background: #f0f6ff;
+}
+
+.file-name {
+  font-size: 0.8rem;
+  color: #1a73e8;
+  margin-top: 4px;
+}
+
 body.dark .task-form {
   background: #2a2a40;
   border-color: #3a3a55;
@@ -110,6 +130,21 @@ body.dark .form-group textarea {
 body.dark .form-group input:focus,
 body.dark .form-group textarea:focus {
   background: #2a2a40;
+}
+
+body.dark .file-input {
+  background: #1a1a2e;
+  border-color: #3a3a55;
+  color: #e0e0e0;
+}
+
+body.dark .file-input:hover {
+  border-color: #1a73e8;
+  background: #1e2a3d;
+}
+
+body.dark .file-name {
+  color: #5b9cf4;
 }
 
 @media (max-width: 768px) {

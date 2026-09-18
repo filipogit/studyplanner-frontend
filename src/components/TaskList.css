@@ -216,6 +216,20 @@
   background-color: #e8f0fe;
 }
 
+.delete-btn {
+  background: none;
+  border: 1px solid #dc3545;
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #fde8e8;
+}
+
 .task-files {
   display: flex;
   flex-wrap: wrap;
@@ -276,6 +290,15 @@ body.dark .cancel-btn:hover {
 body.dark .upload-btn {
   border-color: #1a73e8;
   color: #5fa8ff;
+}
+
+body.dark .delete-btn {
+  border-color: #dc3545;
+  color: #ff7b7b;
+}
+
+body.dark .delete-btn:hover {
+  background-color: #3d1a1a;
 }
 
 body.dark .edit-form input[type="text"],

@@ -25,6 +25,13 @@ export async function updateTask(id, task) {
   if (!response.ok) throw new Error('Kunde inte uppdatera uppgift');
 }
 
+export async function deleteTask(id) {
+  const response = await fetch(`${API_URL}/tasks/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error('Kunde inte ta bort uppgift');
+}
+
 export async function uploadFile(taskId, file) {
   const formData = new FormData();
   formData.append('file', file);

@@ -6,6 +6,7 @@ function TaskForm({ onTaskCreated }) {
   const [description, setDescription] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
+  const [file, setFile] = useState(null)
   const [errors, setErrors] = useState({})
 
   function validate() {
@@ -33,12 +34,13 @@ function TaskForm({ onTaskCreated }) {
       dueDate: dueDate || null,
       category: category.trim() || null,
       isCompleted: false,
-    })
+    }, file)
 
     setTitle('')
     setDescription('')
     setDueDate('')
     setCategory('')
+    setFile(null)
     setErrors({})
   }
 
@@ -91,6 +93,16 @@ function TaskForm({ onTaskCreated }) {
             value={dueDate}
             onChange={e => setDueDate(e.target.value)}
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="file">Bifoga fil</label>
+          <input
+            id="file"
+            type="file"
+            onChange={e => setFile(e.target.files[0] || null)}
+            className="file-input"
+          />
+          {file && <span className="file-name">{file.name}</span>}
         </div>
       </div>
       <button type="submit" className="submit-btn">Lägg till</button>

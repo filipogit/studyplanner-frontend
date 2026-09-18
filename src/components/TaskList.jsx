@@ -19,7 +19,7 @@ function getCategoryColor(category) {
   return categoryColors[Math.abs(hash) % categoryColors.length]
 }
 
-function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
+function TaskList({ tasks, onTaskUpdated, onTaskDeleted, onFileUpload }) {
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({})
   const fileInputRef = useRef(null)
@@ -65,10 +65,6 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
     }
     e.target.value = ''
     setUploadTaskId(null)
-  }
-
-  if (tasks.length === 0) {
-    return <p className="empty-message">Inga uppgifter ännu. Lägg till en!</p>
   }
 
   return (
@@ -177,6 +173,11 @@ function TaskList({ tasks, onTaskUpdated, onFileUpload }) {
                   </button>
                   <button className="edit-btn" onClick={() => startEditing(task)}>{'✏️'} Redigera</button>
                   <button className="upload-btn" onClick={() => handleUploadClick(task.id)}>{'\u{1F4CE}'} Ladda upp fil</button>
+                  <button className="delete-btn" onClick={() => {
+                    if (window.confirm('Vill du ta bort denna uppgift?')) {
+                      onTaskDeleted(task.id)
+                    }
+                  }}>{'🗑️'} Ta bort</button>
                 </div>
               </>
             )}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getTasks, createTask, updateTask, uploadFile } from './api'
+import { getTasks, createTask, updateTask, deleteTask, uploadFile } from './api'
 import TaskList from './components/TaskList'
 import TaskForm from './components/TaskForm'
 import ErrorMessage from './components/ErrorMessage'
@@ -13,11 +13,14 @@ function App() {
   const [sortBy, setSortBy] = useState('created')
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(() => {
+    try { return localStorage.getItem('darkMode') === 'true' } catch { return false }
+  })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     document.body.classList.toggle('dark', darkMode)
+    try { localStorage.setItem('darkMode', darkMode) } catch {}
   }, [darkMode])
 
   useEffect(() => {
@@ -36,10 +39,14 @@ function App() {
     }
   }
 
-  async function handleCreateTask(task) {
+  async function handleCreateTask(task, file) {
     try {
       setError(null)
       const created = await createTask(task)
+      if (file) {
+        const attachment = await uploadFile(created.id, file)
+        created.attachments = [attachment]
+      }
       setTasks(prev => [...prev, created])
     } catch (err) {
       setError(err.message)
@@ -51,6 +58,16 @@ function App() {
       setError(null)
       await updateTask(id, task)
       setTasks(prev => prev.map(t => t.id === id ? { ...t, ...task } : t))
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
+  async function handleDeleteTask(id) {
+    try {
+      setError(null)
+      await deleteTask(id)
+      setTasks(prev => prev.filter(t => t.id !== id))
     } catch (err) {
       setError(err.message)
     }
@@ -117,24 +134,6 @@ function App() {
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <DeadlineReminder tasks={tasks} />
         <TaskForm onTaskCreated={handleCreateTask} />
-        {tasks.length > 0 && (
-          <div className="progress-section">
-            <div className="progress-header">
-              <span className="progress-text">
-                {tasks.filter(t => t.isCompleted).length} av {tasks.length} klara
-              </span>
-              <span className="progress-percent">
-                {Math.round((tasks.filter(t => t.isCompleted).length / tasks.length) * 100)}%
-              </span>
-            </div>
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{ width: `${(tasks.filter(t => t.isCompleted).length / tasks.length) * 100}%` }}
-              />
-            </div>
-          </div>
-        )}
         <div className="search-bar">
           <input
             type="text"
@@ -164,10 +163,19 @@ function App() {
             <div className="spinner"></div>
             <p>Laddar uppgifter...</p>
           </div>
+        ) : sortedTasks.length === 0 ? (
+          <div className="empty-state">
+            <span className="empty-icon">{'📚'}</span>
+            <p className="empty-title">Inga uppgifter ännu</p>
+            <p className="empty-text">Lägg till din första studieuppgift ovan!</p>
+          </div>
         ) : (
-          <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onFileUpload={handleFileUpload} />
+          <TaskList tasks={sortedTasks} onTaskUpdated={handleUpdateTask} onTaskDeleted={handleDeleteTask} onFileUpload={handleFileUpload} />
         )}
       </main>
+      <footer className="footer">
+        <p>StudyPlanner &copy; {new Date().getFullYear()}</p>
+      </footer>
     </div>
   )
 }
