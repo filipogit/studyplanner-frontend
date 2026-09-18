@@ -7,12 +7,21 @@
 body {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   background-color: #eef2f7;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(26, 115, 232, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(40, 167, 69, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(108, 99, 255, 0.03) 0%, transparent 50%);
   color: #333;
   line-height: 1.6;
+  min-height: 100vh;
 }
 
 body.dark {
-  background-color: #1a1a2e;
+  background-color: #12121f;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(26, 115, 232, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(108, 99, 255, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(40, 167, 69, 0.04) 0%, transparent 50%);
   color: #e0e0e0;
 }
 

@@ -96,18 +96,23 @@ function App() {
 
   return (
     <div className="app">
-      <header className="header">
-        <div className="header-brand">
-          <img src={logo} alt="StudyPlanner" className="header-logo" />
-          <div className="header-title">
-            <h1>StudyPlanner</h1>
-            <span className="header-tagline">Planera dina studier</span>
+      <div className="header-wrapper">
+        <header className="header">
+          <div className="header-brand">
+            <img src={logo} alt="StudyPlanner" className="header-logo" />
+            <div className="header-title">
+              <h1>StudyPlanner</h1>
+              <span className="header-tagline">Planera dina studier</span>
+            </div>
           </div>
-        </div>
-        <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? 'Ljust läge' : 'Mörkt läge'}
-        </button>
-      </header>
+          <button className="dark-toggle" onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? 'Ljust läge' : 'Mörkt läge'}
+          </button>
+        </header>
+        <svg className="header-wave" viewBox="0 0 1440 40" preserveAspectRatio="none">
+          <path d="M0,0 C360,40 1080,40 1440,0 L1440,40 L0,40 Z" fill="#eef2f7" />
+        </svg>
+      </div>
       <main className="main">
         {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
         <DeadlineReminder tasks={tasks} />

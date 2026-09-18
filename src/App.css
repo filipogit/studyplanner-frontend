@@ -4,14 +4,30 @@
   min-height: 100vh;
 }
 
+.header-wrapper {
+  position: relative;
+}
+
 .header {
   background: linear-gradient(135deg, #4285f4, #1a73e8, #0d47a1);
   color: white;
   padding: 20px 24px;
-  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.header-wave {
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin-top: -1px;
+}
+
+body.dark .header-wave path {
+  fill: #12121f;
 }
 
 .header-brand {
